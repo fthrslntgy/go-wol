@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"github.com/fthrslntgy/go-wol/helpers/mac"
+	"github.com/fthrslntgy/go-wol/pkg/helpers"
 )
 
 type MACAddress [6]byte
@@ -18,7 +18,7 @@ func New(macAddr string) (*MagicPacket, error) {
 	var packet MagicPacket
 	var address MACAddress
 
-	hwAddr, err := mac.CheckMac(macAddr)
+	hwAddr, err := helpers.CheckMac(macAddr)
 	if err != nil {
 		return nil, err
 	}

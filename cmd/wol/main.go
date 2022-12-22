@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/fthrslntgy/go-wol/wol"
+	"github.com/fthrslntgy/go-wol/pkg/wol"
 )
 
 func main() {

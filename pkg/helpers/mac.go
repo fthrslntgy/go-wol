@@ -1,4 +1,4 @@
-package mac
+package helpers
 
 import (
 	"fmt"

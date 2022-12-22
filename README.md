@@ -8,7 +8,7 @@ To import:
 ```go
 import(
     ...
-    "github.com/fthrslntgy/go-wol/"
+    "github.com/fthrslntgy/go-wol/pkg/wol"
     ...
 )
 ```

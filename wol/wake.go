@@ -13,6 +13,7 @@ func Wake(macAddr string, bcastAddr string) error {
 	if err != nil {
 		return err
 	}
+
 	bs, err := mp.Marshal()
 	if err != nil {
 		return err

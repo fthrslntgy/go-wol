@@ -3,37 +3,28 @@ package magicpacket
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
-	"net"
-	"regexp"
-)
 
-var (
-	delims = ":-"
-	reMAC  = regexp.MustCompile(`^([0-9a-fA-F]{2}[` + delims + `]){5}([0-9a-fA-F]{2})$`)
+	"github.com/fthrslntgy/go-wol/helpers/mac"
 )
 
 type MACAddress [6]byte
+
 type MagicPacket struct {
 	header  [6]byte
 	payload [16]MACAddress
 }
 
-func New(mac string) (*MagicPacket, error) {
+func New(macAddr string) (*MagicPacket, error) {
 	var packet MagicPacket
-	var macAddr MACAddress
+	var address MACAddress
 
-	hwAddr, err := net.ParseMAC(mac)
+	hwAddr, err := mac.CheckMac(macAddr)
 	if err != nil {
 		return nil, err
 	}
 
-	if !reMAC.MatchString(mac) {
-		return nil, fmt.Errorf("%s is not a IEEE 802 MAC-48 address", mac)
-	}
-
-	for idx := range macAddr {
-		macAddr[idx] = hwAddr[idx]
+	for idx := range address {
+		address[idx] = hwAddr[idx]
 	}
 
 	for idx := range packet.header {
@@ -41,7 +32,7 @@ func New(mac string) (*MagicPacket, error) {
 	}
 
 	for idx := range packet.payload {
-		packet.payload[idx] = macAddr
+		packet.payload[idx] = address
 	}
 
 	return &packet, nil

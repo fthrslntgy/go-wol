@@ -8,9 +8,9 @@ import (
 
 func main() {
 
-	mac := "aa:bb:cc:dd:ee:ff"
-	broadcast := "255.255.255.255:9"
-	err := wol.Wake(mac, broadcast)
+	macAddr := "aa:bb:cc:dd:ee:ff"
+	bcastAddr := "255.255.255.255:9"
+	err := wol.Wake(macAddr, bcastAddr)
 	if err != nil {
 		log.Println(err.Error())
 	}

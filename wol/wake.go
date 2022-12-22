@@ -7,7 +7,7 @@ import (
 	"github.com/fthrslntgy/go-wol/internal/magicpacket"
 )
 
-func Wake(macAddr string, bcastAddr string) error {
+func Wake(macAddr string, bcastAddr string, bcastPort any) error {
 
 	mp, err := magicpacket.New(macAddr)
 	if err != nil {
@@ -19,7 +19,12 @@ func Wake(macAddr string, bcastAddr string) error {
 		return err
 	}
 
-	udpAddr, err := net.ResolveUDPAddr("udp", bcastAddr)
+	if bcastPort == nil {
+		bcastPort = 9
+	}
+
+	host := fmt.Sprintf("%s:%d", bcastAddr, bcastPort)
+	udpAddr, err := net.ResolveUDPAddr("udp", host)
 	if err != nil {
 		return err
 	}
@@ -31,7 +36,7 @@ func Wake(macAddr string, bcastAddr string) error {
 	defer conn.Close()
 
 	fmt.Printf("Attempting to send a magic packet to MAC %s\n", macAddr)
-	fmt.Printf("... Broadcasting to: %s\n", bcastAddr)
+	fmt.Printf("... Broadcasting to: %s\n", host)
 	n, err := conn.Write(bs)
 	if err == nil && n != 102 {
 		err = fmt.Errorf("magic packet sent was %d bytes (expected 102 bytes sent)", n)

@@ -3,11 +3,13 @@ package wol
 import (
 	"fmt"
 	"net"
+
+	"github.com/fthrslntgy/go-wol/internal/magicpacket"
 )
 
 func Wake(macAddr string, bcastAddr string) error {
 
-	mp, err := New(macAddr)
+	mp, err := magicpacket.New(macAddr)
 	if err != nil {
 		return err
 	}

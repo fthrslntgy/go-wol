@@ -24,7 +24,7 @@ if err != nil {
 }
 ```
 
-Broadcast port can be send as `nil`. It is default `7`.
+Broadcast port can be send as `nil`. It is default `9`.
 ```go
 macAddr := "aa:bb:1c:2d:ee:33"
 bcastAddr := "192.168.0.255"
